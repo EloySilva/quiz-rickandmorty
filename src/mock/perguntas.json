@@ -1,0 +1,46 @@
+{
+    "author": "Eloy dos Santos",
+    "subject": "Rick and Morty",
+    "quiz": {
+        "question": "Rick é o que do Morty?",
+        "answer": [
+            {
+                "label": "Avô",
+                "isRight": true
+            },
+            {
+                "label": "Tio",
+                "isRight": false
+            },
+            {
+                "label": "Pai",
+                "isRight": false
+            },
+            {
+                "label": "Irmã",
+                "isRight": false
+            },
+        ]
+    },
+    {
+        "question": "Onde o Morty enfia a semente X",
+        "answer": [
+            {
+                "label": "No ânus",
+                "isRight": true
+            },
+            {
+                "label": "Na boca",
+                "isRight": false
+            },
+            {
+                "label": "No Bolso",
+                "isRight": false
+            },
+            {
+                "label": "Carrega na mão",
+                "isRight": false
+            },
+        ]
+    }
+}

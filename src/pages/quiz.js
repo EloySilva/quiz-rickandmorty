@@ -1,6 +1,24 @@
+import { useRouter } from 'next/router';
+import Widget, { Container, Header } from '../styles/Quiz.js';
+
 const Quiz = () => {
+    const router = useRouter();
+
     return (
-        <h1>Estou no quiz</h1>
+    <Container>
+        <img src="" />
+          <Widget>
+            <Header>
+              <Widget.Title>
+                Responda a Pergunta { router.query.name }
+              </Widget.Title>
+            </Header>
+            <Widget.Content>
+              <p>PERGUNTAS NESSA CARAIA</p>
+            </Widget.Content>
+          </Widget>
+    </Container>
+
     )
 }
 
