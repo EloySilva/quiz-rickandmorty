@@ -55,7 +55,6 @@ Widget.Content = styled.div`
 Widget.TextBox = styled.input`
     width: 100%;
     height: 45px;
-
     border-color: ${(props) => props.theme.colors.primary};
     background-color: ${(props) => props.theme.colors.secondary};
     //color: #9932CC;
@@ -67,10 +66,10 @@ Widget.TextBox = styled.input`
     }
 
 `;
+
 Widget.Button = styled.a`
     width: 150px;
     height: 40px;
-
     border-radius: 15px;
     border-color: transparent;
     background-color: #FFFF00;

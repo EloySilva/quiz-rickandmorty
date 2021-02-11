@@ -1,5 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { shade } from 'polished'
+
 
 export const Container = styled.section`
     background-image: url('https://wallpapercave.com/wp/wp1822736.jpg');
@@ -21,7 +22,6 @@ const Widget = styled.div`
     align-items: center;
     justify-content: flex-start;
     width: 350px;
-    height: 240px;
     margin: 25px 45px;
     background: ${(props) => props.theme.colors.bgColor};
     border-radius: 5px;
@@ -40,7 +40,6 @@ Widget.Title = styled.h4`
 
 Widget.Content = styled.div`
     width: 100%;
-    height: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,5 +88,51 @@ Widget.Button = styled.a`
         color: #36648B;
     }
 `
+
+export const List = styled.ul`
+    width: 100%;
+    margin: 25px 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+
+    li + li {
+        margin-top: 10px;
+    }
+`;
+
+
+export const ListItem = styled.li.attrs(props => {
+    isSelected: false;
+    isCorrect: false || undefined;
+})`
+    color: #fff;
+    padding: 15px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    ${(props) => props.isSelected ? css`
+        background-color: #76ff03;
+        color: #000;
+    `: ''}
+
+    ${(props) => props.isCorrect == true ? css`
+        background-color: #76ff03;
+        color: #000;
+    `: ''}
+
+    ${(props) => props.isCorrect == true ? css`
+        background-color: #76ff03;
+        color: #000;
+    `: ''}
+
+    &:hover {
+        background-color: #33eaff;
+        color: #000
+    }
+`;
 
 export default Widget;
