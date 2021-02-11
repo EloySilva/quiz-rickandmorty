@@ -1,7 +1,7 @@
 {
     "author": "Eloy dos Santos",
     "subject": "Rick and Morty",
-    "quiz": [
+    "quizes": [
         {
             "question": "Rick é o que do Morty?",
             "answer": [
