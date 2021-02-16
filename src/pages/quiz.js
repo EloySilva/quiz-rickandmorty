@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Widget, { Container, Header, List, ListItem } from '../styles/Quiz.js';
 import questionsData from '../mock/perguntas.json';
 import { ImRadioUnchecked, ImRadioChecked } from "react-icons/im";
+import Button from '../styles/Button.js';
 
 const Quiz = () => {
     const router = useRouter();
@@ -16,6 +17,8 @@ const Quiz = () => {
     });
 
     const [corretQuestion, setCorrectQuestion] = useState('');
+
+    const [myHits, setMyHits] = useState(0);
 
     const handleItenClick = useCallback((id) => {
       setSelectedIten(id);
@@ -44,6 +47,8 @@ const Quiz = () => {
       if(isAnswered) {
         const correctOption = currentQuestion.answer.find((answer) => answer.isRight);
         setCorrectQuestion(correctOption.id);
+        if(selectedIten === correctOption.id)
+          setMyHits(myHits + 1);
       }
     }, [isAnswered])
 
@@ -57,37 +62,45 @@ const Quiz = () => {
               </Widget.Title>
             </Header>
             <Widget.Content>
-              <p>{currentQuestion.question}</p>
-              <List>
-                { 
-                  currentQuestion.answer.map((resposta, index) => (
-                  <ListItem key={resposta.id}
-                  isSelected={ selectedIten === resposta.id }
-                  isCorrect={ corretQuestion == resposta.id }
-                  onClick={ 
-                    (event) => {
-                      if(isAnswered) {
-                        event.preventDefault();
-                        return;
-                      }
-                      handleItenClick(resposta.id);
-                    } 
-                  }>
-                  { resposta.label }   
-                    
-                    {
-                      selectedIten === resposta.id ? <ImRadioChecked size={20} /> : <ImRadioUnchecked size={20} />
-                    }
 
-                  </ListItem>
-                  ) )
+                {
+                  isAnswered && nextQuizes.length === 0 ? <p>Você acertou {myHits} de {questionsData.quizes.length} </p> 
+                  :
+                  <>
+                    <p>{currentQuestion.question}</p>
+                    <List>
+                      { 
+                        currentQuestion.answer.map((resposta, index) => (
+                        <ListItem key={resposta.id}
+                        isSelected={ selectedIten === resposta.id }
+                        isCorrect={ corretQuestion == resposta.id }
+                        onClick={ 
+                          (event) => {
+                            if(isAnswered) {
+                              event.preventDefault();
+                              return;
+                            }
+                            handleItenClick(resposta.id);
+                          } 
+                        }>
+                        { resposta.label }
+                          
+                          {
+                            selectedIten === resposta.id ? <ImRadioChecked size={20} /> : <ImRadioUnchecked size={20} />
+                          }
+
+                        </ListItem>
+                        ) )
+                      }
+                    </List>
+                  </>
                 }
-              </List>
+
             </Widget.Content>
 
             {
-              isAnswered ? <button onClick={handleNextQuestion}>Próxima</button>
-              : <button onClick={handleConfirmClick}>Confirmar</button>
+              isAnswered ? <Button onClick={handleNextQuestion}>Próxima</Button>
+              : <Button onClick={handleConfirmClick}>Confirmar</Button>
             }
           </Widget>
     </Container>

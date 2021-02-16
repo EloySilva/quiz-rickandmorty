@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { shade } from 'polished'
+//import { shade } from 'polished'
 
 
 export const Container = styled.section`
@@ -27,6 +27,7 @@ const Widget = styled.div`
     border-radius: 5px;
     border: 2px solid ${(props) => props.theme.colors.primary};
     overflow: hidden;
+    padding-bottom: 10px;
 `;
 
 Widget.Title = styled.h4`
@@ -66,28 +67,7 @@ Widget.TextBox = styled.input`
     }
 
 `;
-Widget.Button = styled.a`
-    width: 150px;
-    height: 40px;
 
-    border-radius: 15px;
-    border-color: transparent;
-    background-color: #FFFF00;
-    color: #36648B;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-        background-color: ${ shade(0.2, '#FFFF00') };
-        cursor: pointer;
-    }
-
-    &:visited {
-        text-decoration: none;
-        color: #36648B;
-    }
-`
 
 export const List = styled.ul`
     width: 100%;
@@ -115,12 +95,7 @@ export const ListItem = styled.li.attrs(props => {
     justify-content: space-between;
 
     ${(props) => props.isSelected ? css`
-        background-color: #76ff03;
-        color: #000;
-    `: ''}
-
-    ${(props) => props.isCorrect == true ? css`
-        background-color: #76ff03;
+        background-color: #33eaff;
         color: #000;
     `: ''}
 
