@@ -2,12 +2,14 @@ import { useCallback, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Widget, { Container, Header, List, ListItem } from '../styles/Quiz.js';
 import questionsData from '../mock/perguntas.json';
+import Link from 'next/link';
 import { ImRadioUnchecked, ImRadioChecked } from "react-icons/im";
 import Button from '../styles/Button.js';
+import WinnerText from '../components/WinnerText';
 
 const Quiz = () => {
     const router = useRouter();
-    const [selectedIten, setSelectedIten] = useState(undefined);
+    const [selectedItem, setselectedItem] = useState(undefined);
     const [isAnswered, setIsAnswered] = useState(false);
     const [nextQuizes, setNextQuizes] = useState(() => {
       return questionsData.quizes.slice(1, questionsData.quizes.length);
@@ -21,8 +23,8 @@ const Quiz = () => {
     const [myHits, setMyHits] = useState(0);
 
     const handleItenClick = useCallback((id) => {
-      setSelectedIten(id);
-    }, [setSelectedIten]);
+      setselectedItem(id);
+    }, [setselectedItem]);
 
     const handleConfirmClick = useCallback((event) => {
       //setIsAnswered(true);
@@ -47,7 +49,7 @@ const Quiz = () => {
       if(isAnswered) {
         const correctOption = currentQuestion.answer.find((answer) => answer.isRight);
         setCorrectQuestion(correctOption.id);
-        if(selectedIten === correctOption.id)
+        if(selectedItem === correctOption.id)
           setMyHits(myHits + 1);
       }
     }, [isAnswered])
@@ -62,9 +64,10 @@ const Quiz = () => {
               </Widget.Title>
             </Header>
             <Widget.Content>
-
+            
                 {
-                  isAnswered && nextQuizes.length === 0 ? <p>Você acertou {myHits} de {questionsData.quizes.length} </p> 
+                  isAnswered && nextQuizes.length === 0 ? 
+                  <WinnerText text={`Você acertou ${myHits} de ${questionsData.quizes.length}`} />
                   :
                   <>
                     <p>{currentQuestion.question}</p>
@@ -72,7 +75,7 @@ const Quiz = () => {
                       { 
                         currentQuestion.answer.map((resposta, index) => (
                         <ListItem key={resposta.id}
-                        isSelected={ selectedIten === resposta.id }
+                        isSelected={ selectedItem === resposta.id }
                         isCorrect={ corretQuestion == resposta.id }
                         onClick={ 
                           (event) => {
@@ -86,7 +89,7 @@ const Quiz = () => {
                         { resposta.label }
                           
                           {
-                            selectedIten === resposta.id ? <ImRadioChecked size={20} /> : <ImRadioUnchecked size={20} />
+                            selectedItem === resposta.id ? <ImRadioChecked size={20} /> : <ImRadioUnchecked size={20} />
                           }
 
                         </ListItem>
@@ -97,11 +100,23 @@ const Quiz = () => {
                 }
 
             </Widget.Content>
-
             {
-              isAnswered ? <Button onClick={handleNextQuestion}>Próxima</Button>
-              : <Button onClick={handleConfirmClick}>Confirmar</Button>
-            }
+            (() => {
+              if(isAnswered && nextQuizes.length === 0 ) {
+                return(
+                  <Link href="/">
+                    <Button type='button'>Jogar de novo?</Button>
+                  </Link>
+                )
+              }
+               
+              if(isAnswered){
+                return <Button onClick={handleNextQuestion}>Próxima</Button>
+              }
+
+              return <Button onClick={handleConfirmClick}>Confirmar</Button>
+            })()
+          }
           </Widget>
     </Container>
 

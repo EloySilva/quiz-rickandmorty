@@ -68,7 +68,6 @@ Widget.TextBox = styled.input`
 
 `;
 
-
 export const List = styled.ul`
     width: 100%;
     margin: 25px 0;
@@ -80,7 +79,6 @@ export const List = styled.ul`
         margin-top: 10px;
     }
 `;
-
 
 export const ListItem = styled.li.attrs(props => {
     isSelected: false;
